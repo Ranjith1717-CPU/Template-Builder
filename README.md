@@ -2,7 +2,7 @@
 
 > Create, manage, and utilize document templates for UK Financial Advisory reports with AI-powered intelligence.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-blue?style=for-the-badge&logo=github-pages)](https://your-username.github.io/intelligent-template-builder/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-blue?style=for-the-badge&logo=github-pages)](https://ranjith1717-cpu.github.io/Template-Builder/)
 [![Version](https://img.shields.io/badge/version-2.0.0-green?style=for-the-badge)](https://github.com/your-username/intelligent-template-builder/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 
@@ -19,7 +19,7 @@
 ## 🚀 Quick Start
 
 ### Option 1: Use the Live Demo
-Visit our [live demo](https://your-username.github.io/intelligent-template-builder/) and start creating templates immediately!
+Visit our [live demo](https://ranjith1717-cpu.github.io/Template-Builder/) and start creating templates immediately!
 
 ### Option 2: Run Locally
 1. **Clone the repository**
@@ -246,7 +246,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**[🚀 Try the Live Demo](https://your-username.github.io/intelligent-template-builder/) | [📚 Read the Docs](docs/) | [🐛 Report Bug](https://github.com/your-username/intelligent-template-builder/issues)**
+**[🚀 Try the Live Demo](https://ranjith1717-cpu.github.io/Template-Builder/) | [📚 Read the Docs](docs/) | [🐛 Report Bug](https://github.com/your-username/intelligent-template-builder/issues)**
 
 Made with ❤️ for the UK Financial Advisory Community
 
