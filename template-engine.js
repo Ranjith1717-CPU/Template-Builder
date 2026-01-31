@@ -5,16 +5,45 @@
 
 class TemplateEngine {
     constructor() {
+        // Enhanced pattern matching for enterprise financial advisory documents
         this.patterns = {
-            client_name: /(?:Prepared For:|Client:|Name:)\s*([A-Z][a-zA-Z\s]+)/gi,
+            // Basic client information
+            client_name: /(?:Prepared For:|Client:|Name:|Mr\.|Mrs\.|Ms\.|Dr\.)\s*([A-Z][a-zA-Z\s]+)/gi,
             date: /(\d{1,2}\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4})/gi,
+
+            // Financial data patterns
             currency: /£([\d,]+(?:\.\d{2})?)/g,
             percentage: /(\d+\.?\d*%)/g,
-            provider: /Provider:\s*([A-Z][A-Za-z\s]+)/gi,
+            portfolio_value: /(?:Portfolio|Value|Amount|Balance|grown from|grown to).*?£([\d,]+(?:\.\d{2})?)/gi,
+            annual_income: /(?:Income|Salary|Earnings|per annum).*?£([\d,]+(?:\.\d{2})?)/gi,
+            monthly_income: /(?:Monthly|per month|disposable income).*?£([\d,]+(?:\.\d{2})?)/gi,
+
+            // Investment and pension data
+            provider: /(?:Provider|Platform|Company):\s*([A-Z][A-Za-z\s&]+)/gi,
             policy_number: /Policy Number:\s*([A-Z0-9\-]+)/gi,
-            fund_value: /Fund Value:\s*£([\d,]+(?:\.\d{2})?)/gi,
+            fund_value: /(?:Fund Value|SIPP|Pension.*valued at).*?£([\d,]+(?:\.\d{2})?)/gi,
             annual_charge: /Annual Charge[s]?:\s*(\d+\.?\d*%)/gi,
-            risk_profile: /Risk Profile:\s*([A-Za-z]+)/gi,
+            risk_profile: /(?:Risk Profile|Risk.*approach|as a.*investor):\s*([A-Za-z\s]+)/gi,
+
+            // Enhanced patterns for comprehensive document analysis
+            investment_product: /(?:Fund|Investment|Product|Portfolio|Plan):\s*([A-Za-z\s&\-0-9]+)/gi,
+            recommendation: /(?:recommend|suggest|advice|action).*?([A-Za-z\s,\.\-0-9]+)/gi,
+            withdrawal_amount: /(?:withdrawal|taken|withdrew).*?£([\d,]+(?:\.\d{2})?)/gi,
+
+            // Meeting transcript patterns
+            speaker_identification: /(?:Advisor|Client|Representative):\s*(.*)/gi,
+            action_items: /(?:Action|TODO|Follow.?up|Next steps?):\s*(.*)/gi,
+            decisions_made: /(?:Decision|Agreed|Concluded|recommend):\s*(.*)/gi,
+
+            // Regulatory and compliance
+            fca_number: /(?:FCA|FSA|Reg|Registration).*?(\d{6,})/gi,
+            firm_name: /(?:Firm|Company|Advisory|Wealth|prepared by):\s*([A-Z][a-zA-Z\s&]+)/gi,
+            advisor_name: /(?:Prepared By|Advisor|Representative):\s*([A-Z][a-zA-Z\s]+)/gi,
+
+            // Document structure recognition
+            section_headers: /^([A-Z][A-Za-z\s&\-]{3,}):?\s*$/gm,
+            objectives: /(?:objective|goal|target|aim).*?([A-Za-z\s,\.\-0-9£]+)/gi,
+            risk_assessment: /(?:risk|moderate|conservative|aggressive|balanced).*?([A-Za-z\s,\.\-]+)/gi
         };
 
         this.sampleTemplates = this.initializeSampleTemplates();

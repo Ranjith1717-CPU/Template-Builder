@@ -33,6 +33,9 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="list-group list-group-flush">
+                            <button class="list-group-item list-group-item-action" onclick="showSection('word-templates')">
+                                <i class="fas fa-file-word me-2"></i> Word Templates
+                            </button>
                             <button class="list-group-item list-group-item-action" onclick="showSection('analyze')">
                                 <i class="fas fa-file-alt me-2"></i> Analyze Document
                             </button>
@@ -117,6 +120,84 @@
                     </div>
                 </div>
 
+                <!-- Word Templates Section -->
+                <div id="word-templates-section" class="content-section" style="display:none;">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h4><i class="fas fa-file-word me-2"></i>Enterprise Word Templates</h4>
+                            <p class="mb-0">Upload your existing .docx templates for pixel-perfect preservation and round-trip fidelity</p>
+                        </div>
+                        <div class="card-body">
+                            <!-- Enterprise Features Notice -->
+                            <div class="alert alert-info">
+                                <h6><i class="fas fa-star me-2"></i>Enterprise Features</h6>
+                                <ul class="mb-0">
+                                    <li><strong>Pixel-perfect preservation</strong> - Maintains exact formatting from your existing Word templates</li>
+                                    <li><strong>Round-trip fidelity</strong> - Generate → Edit in Word → No formatting loss</li>
+                                    <li><strong>Native Word compatibility</strong> - No HTML conversion issues</li>
+                                    <li><strong>Firm branding maintained</strong> - Headers, footers, tables, styles preserved exactly</li>
+                                </ul>
+                            </div>
+
+                            <!-- Word Template Upload -->
+                            <div class="mb-4">
+                                <h6>Upload Existing Word Template (.docx)</h6>
+                                <div class="upload-area">
+                                    <div class="upload-dropzone" ondrop="handleWordTemplateDrop(event)" ondragover="handleDragOver(event)">
+                                        <i class="fas fa-file-word fa-3x text-success mb-3"></i>
+                                        <h5>Drop your .docx template here or click to browse</h5>
+                                        <p class="text-muted">Upload your firm's existing Word template with placeholders like {{client_name}} or [FIELD_NAME]</p>
+                                        <input type="file" id="wordTemplateInput" class="d-none" accept=".docx" onchange="handleWordTemplateSelect(event)">
+                                        <button class="btn btn-success" onclick="document.getElementById('wordTemplateInput').click()">
+                                            <i class="fas fa-upload me-1"></i>Browse Word Template
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Placeholder Guide -->
+                            <div class="card bg-light mb-4">
+                                <div class="card-header">
+                                    <h6><i class="fas fa-info-circle me-2"></i>Supported Placeholder Formats</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6>Bracket Placeholders</h6>
+                                            <code>{{client_name}}</code><br>
+                                            <code>{{portfolio_value}}</code><br>
+                                            <code>{{risk_profile}}</code>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Square Brackets</h6>
+                                            <code>[CLIENT_NAME]</code><br>
+                                            <code>[PORTFOLIO_VALUE]</code><br>
+                                            <code>[RISK_PROFILE]</code>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <h6>Word Merge Fields</h6>
+                                            <code>«client_name»</code><br>
+                                            <code>«portfolio_value»</code>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Content Controls</h6>
+                                            <small>Word Developer → Content Controls with alias names</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Processing Status -->
+                            <div id="wordProcessingStatus" class="mb-4" style="display:none;"></div>
+
+                            <!-- Template Analysis Results -->
+                            <div id="wordTemplateResults" class="mt-4" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Analyze Document Section -->
                 <div id="analyze-section" class="content-section" style="display:none;">
                     <div class="card">
@@ -145,7 +226,8 @@
                                 <div class="upload-dropzone" ondrop="handleFileDrop(event)" ondragover="handleDragOver(event)">
                                     <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
                                     <h5>Drop your file here or click to browse</h5>
-                                    <p class="text-muted">Supports: PDF, TXT, DOC files (up to 10MB)</p>
+                                    <p class="text-muted">Supports: PDF (text-based), TXT, DOC files (up to 10MB)</p>
+                                    <small class="text-muted">Note: For scanned PDFs, please copy-paste the text manually</small>
                                     <input type="file" id="fileInputElement" class="d-none" accept=".pdf,.txt,.doc,.docx" onchange="handleFileSelect(event)">
                                     <button class="btn btn-primary" onclick="document.getElementById('fileInputElement').click()">
                                         Browse Files
@@ -360,8 +442,18 @@
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+        // Configure PDF.js worker
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
     <script src="template-engine.js"></script>
+    <script src="word-export.js"></script>
+    <script src="word-template-engine.js"></script>
+    <script src="standard-template-generator.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
