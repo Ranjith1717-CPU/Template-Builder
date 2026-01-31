@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Template Builder - UK Financial Advisors</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-robot me-2"></i>
+                Intelligent Template Builder
+            </a>
+            <span class="navbar-text">
+                <i class="fas fa-flag me-1"></i> UK Financial Advisors
+            </span>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="card sticky-top">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="fas fa-cogs me-2"></i>Actions</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <button class="list-group-item list-group-item-action" onclick="showSection('analyze')">
+                                <i class="fas fa-file-alt me-2"></i> Analyze Document
+                            </button>
+                            <button class="list-group-item list-group-item-action" onclick="showSection('templates')">
+                                <i class="fas fa-folder me-2"></i> View Templates
+                            </button>
+                            <button class="list-group-item list-group-item-action" onclick="showSection('generate')">
+                                <i class="fas fa-file-export me-2"></i> Generate Document
+                            </button>
+                            <button class="list-group-item list-group-item-action" onclick="showSection('demo')">
+                                <i class="fas fa-play me-2"></i> Try Demo
+                            </button>
+                            <button class="list-group-item list-group-item-action" onclick="showSection('help')">
+                                <i class="fas fa-question-circle me-2"></i> Help & Guide
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Template Stats -->
+                <div class="card mt-3">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Statistics</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-item">
+                            <span class="stat-label">Templates Created:</span>
+                            <span class="stat-value" id="templateCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Documents Analyzed:</span>
+                            <span class="stat-value" id="documentCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Last Activity:</span>
+                            <span class="stat-value" id="lastActivity">Never</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                <!-- Welcome Section -->
+                <div id="welcome-section" class="content-section">
+                    <div class="jumbotron bg-gradient-primary text-white p-5 rounded">
+                        <h1 class="display-4">Welcome to Intelligent Template Builder</h1>
+                        <p class="lead">Create, manage, and utilize document templates for UK Financial Advisory reports with AI-powered intelligence.</p>
+                        <hr class="my-4">
+                        <p>This system automatically extracts patterns from your financial documents and creates reusable templates for Annual Reviews, Suitability Reports, and more.</p>
+                        <button class="btn btn-light btn-lg" onclick="showSection('demo')">
+                            <i class="fas fa-play me-2"></i>Try Interactive Demo
+                        </button>
+                        <button class="btn btn-outline-light btn-lg ms-2" onclick="showSection('help')">
+                            <i class="fas fa-book me-2"></i>Read Documentation
+                        </button>
+                    </div>
+
+                    <!-- Features Grid -->
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="feature-card text-center p-4">
+                                <i class="fas fa-brain fa-3x text-primary mb-3"></i>
+                                <h5>AI-Powered Analysis</h5>
+                                <p>Automatically extracts patterns and structures from your financial documents using intelligent parsing algorithms.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card text-center p-4">
+                                <i class="fas fa-file-contract fa-3x text-success mb-3"></i>
+                                <h5>UK Compliance Ready</h5>
+                                <p>Templates designed specifically for UK Financial Conduct Authority (FCA) requirements and Consumer Duty regulations.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card text-center p-4">
+                                <i class="fas fa-users fa-3x text-info mb-3"></i>
+                                <h5>Collaborative Platform</h5>
+                                <p>Share templates with colleagues, maintain version control, and collaborate on document standardization.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analyze Document Section -->
+                <div id="analyze-section" class="content-section" style="display:none;">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4><i class="fas fa-file-alt me-2"></i>Document Analysis</h4>
+                            <p class="mb-0">Upload or paste your financial document to create an intelligent template</p>
+                        </div>
+                        <div class="card-body">
+                            <!-- Input Method Selection -->
+                            <div class="mb-4">
+                                <h6>Choose Input Method:</h6>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="inputMethod" id="fileInput" value="file" checked>
+                                    <label class="btn btn-outline-primary" for="fileInput">
+                                        <i class="fas fa-upload me-1"></i>Upload File
+                                    </label>
+                                    <input type="radio" class="btn-check" name="inputMethod" id="textInput" value="text">
+                                    <label class="btn btn-outline-primary" for="textInput">
+                                        <i class="fas fa-keyboard me-1"></i>Paste Text
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- File Upload -->
+                            <div id="file-upload-area" class="upload-area mb-4">
+                                <div class="upload-dropzone" ondrop="handleFileDrop(event)" ondragover="handleDragOver(event)">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                    <h5>Drop your file here or click to browse</h5>
+                                    <p class="text-muted">Supports: PDF, TXT, DOC files (up to 10MB)</p>
+                                    <input type="file" id="fileInputElement" class="d-none" accept=".pdf,.txt,.doc,.docx" onchange="handleFileSelect(event)">
+                                    <button class="btn btn-primary" onclick="document.getElementById('fileInputElement').click()">
+                                        Browse Files
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Text Input -->
+                            <div id="text-input-area" style="display:none;">
+                                <div class="mb-3">
+                                    <label for="documentText" class="form-label">Paste Document Content:</label>
+                                    <textarea class="form-control" id="documentText" rows="10"
+                                              placeholder="Paste your financial document content here..."></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Analysis Options -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label for="templateName" class="form-label">Template Name:</label>
+                                    <input type="text" class="form-control" id="templateName" placeholder="Auto-generated from document">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="documentType" class="form-label">Expected Document Type:</label>
+                                    <select class="form-select" id="documentType">
+                                        <option value="auto">Auto-detect</option>
+                                        <option value="annual_review">Annual Review Report</option>
+                                        <option value="suitability_report">Suitability Report</option>
+                                        <option value="generic">Generic Financial Document</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Analyze Button -->
+                            <div class="d-grid">
+                                <button class="btn btn-success btn-lg" onclick="analyzeDocument()">
+                                    <i class="fas fa-cogs me-2"></i>Analyze & Create Template
+                                </button>
+                            </div>
+
+                            <!-- Analysis Results -->
+                            <div id="analysisResults" class="mt-4" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Templates Section -->
+                <div id="templates-section" class="content-section" style="display:none;">
+                    <div class="card">
+                        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4><i class="fas fa-folder me-2"></i>Template Library</h4>
+                                <p class="mb-0">Manage your document templates</p>
+                            </div>
+                            <button class="btn btn-light" onclick="refreshTemplateList()">
+                                <i class="fas fa-sync me-1"></i>Refresh
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="templatesList">
+                                <!-- Templates will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generate Document Section -->
+                <div id="generate-section" class="content-section" style="display:none;">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h4><i class="fas fa-file-export me-2"></i>Generate Document</h4>
+                            <p class="mb-0">Fill a template to create a new document</p>
+                        </div>
+                        <div class="card-body">
+                            <div id="generateContent">
+                                <!-- Generation interface will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo Section -->
+                <div id="demo-section" class="content-section" style="display:none;">
+                    <div class="card">
+                        <div class="card-header bg-warning text-dark">
+                            <h4><i class="fas fa-play me-2"></i>Interactive Demo</h4>
+                            <p class="mb-0">Try the system with pre-loaded sample documents</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="demo-card">
+                                        <h5><i class="fas fa-calendar-check me-2"></i>Annual Review Demo</h5>
+                                        <p>Experience creating a template from a sample Annual Review Report</p>
+                                        <button class="btn btn-primary" onclick="loadAnnualReviewDemo()">
+                                            <i class="fas fa-play me-1"></i>Start Demo
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="demo-card">
+                                        <h5><i class="fas fa-file-contract me-2"></i>Suitability Report Demo</h5>
+                                        <p>Experience creating a template from a sample Suitability Report</p>
+                                        <button class="btn btn-success" onclick="loadSuitabilityReportDemo()">
+                                            <i class="fas fa-play me-1"></i>Start Demo
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Demo Results Area -->
+                            <div id="demoResults" class="mt-4" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Help Section -->
+                <div id="help-section" class="content-section" style="display:none;">
+                    <div class="card">
+                        <div class="card-header bg-secondary text-white">
+                            <h4><i class="fas fa-question-circle me-2"></i>Help & Documentation</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5>Quick Start Guide</h5>
+                                    <ol>
+                                        <li><strong>Analyze Document:</strong> Upload or paste your financial document</li>
+                                        <li><strong>Review Template:</strong> Check the automatically generated template</li>
+                                        <li><strong>Customize:</strong> Modify fields and sections as needed</li>
+                                        <li><strong>Generate:</strong> Use the template to create new documents</li>
+                                        <li><strong>Share:</strong> Export templates for team collaboration</li>
+                                    </ol>
+
+                                    <h5 class="mt-4">Supported Document Types</h5>
+                                    <ul>
+                                        <li><strong>Annual Review Reports:</strong> Client portfolio reviews and recommendations</li>
+                                        <li><strong>Suitability Reports:</strong> Investment advice and pension transfer analysis</li>
+                                        <li><strong>Generic Documents:</strong> Any financial document with structured content</li>
+                                    </ul>
+
+                                    <h5 class="mt-4">Features</h5>
+                                    <ul>
+                                        <li>Intelligent pattern recognition for financial data</li>
+                                        <li>UK FCA compliance-ready templates</li>
+                                        <li>Interactive template creation and editing</li>
+                                        <li>Document generation with data validation</li>
+                                        <li>Template sharing and collaboration</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-light">
+                                        <div class="card-header">
+                                            <h6><i class="fas fa-info-circle me-2"></i>System Info</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <small>
+                                                <strong>Version:</strong> 2.0.0<br>
+                                                <strong>Last Updated:</strong> January 2025<br>
+                                                <strong>Compatibility:</strong> All modern browsers<br>
+                                                <strong>Storage:</strong> Local browser storage<br>
+                                                <strong>GitHub:</strong> <a href="#" target="_blank">Repository</a>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="card bg-light mt-3">
+                                        <div class="card-header">
+                                            <h6><i class="fas fa-download me-2"></i>Export Options</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <button class="btn btn-sm btn-outline-primary mb-2 w-100" onclick="exportTemplates()">
+                                                Export All Templates
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary mb-2 w-100" onclick="importTemplates()">
+                                                Import Templates
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-info w-100" onclick="clearAllData()">
+                                                Reset System
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 Intelligent Template Builder for UK Financial Advisors</p>
+            <p><small>Built with ❤️ for the financial advisory community</small></p>
+        </div>
+    </footer>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="spinner-border text-primary mb-3" role="status"></div>
+                    <h5 id="loadingMessage">Processing...</h5>
+                    <p class="text-muted" id="loadingDetails">Please wait while we analyze your document.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="template-engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

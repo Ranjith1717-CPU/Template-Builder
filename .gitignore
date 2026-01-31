@@ -1,0 +1,87 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Logs
+logs
+*.log
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+out/
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Personal files (keep project clean)
+personal/
+private/
+backup/
+old/
+test_*.py
+demo_*.py
+scratch.*
+
+# Large data files
+*.xlsx
+*.csv
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mp4
+*.mov
+*.avi
+
+# Exclude everything else not related to the template builder
+!README.md
+!index.html
+!styles.css
+!app.js
+!template-engine.js
+!TEMPLATE_BUILDER_DOCUMENTATION.md
+!LICENSE
+!.gitignore
